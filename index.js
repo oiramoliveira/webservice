@@ -25,7 +25,7 @@ const mensagens = ["Essa é a primeira mensagem", "Essa é a segunda mensagem", 
 
 //[GET] /mensagens - Retorna a lista de mensagem
 app.get('/mensagens', (req, res) => {
-    res.send(mensagens.filter(boolean))//Filter Boolean exibes apenas mensagens com conteudo, não mostra null após o delete
+    res.send(mensagens.filter(boolean))//Filter Boolean exibe apenas mensagens com conteudo, não mostra null após o delete
 })
 
 //[GET] /mensagem/{id} - Retorna apenas uma única mensagem pelo ID
