@@ -31,7 +31,14 @@ app.get('/mensagens', (req, res) => {
 //[GET] /mensagem/{id} - Retorna apenas uma única mensagem pelo ID
 app.get('/mensagens/:id', (req, res) => {
     const id = req.params.id - 1
-    const mensagem = mensagens [id] 
+    const mensagem = mensagens[id]
+    
+    //Validação caso não encontre a mensagem
+    if (!mensagem) {
+        res.send('Mensagem não encontrada!')
+        return
+    }
+
     res.send(mensagem)
 })
     
