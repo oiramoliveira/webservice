@@ -21,8 +21,7 @@ CRUD: Creat(criar), Read(ler) (Single(individual) & All(tudo)), Update(atualizar
 -[DELETE] /mensagens/{id} - Remove uma mensagem pelo ID
 */
 
-const mensagens = ["Essa é a primeira mensagem", 
-                  "Essa é a segunda mensagem"]
+const mensagens = ["Essa é a primeira mensagem", "Essa é a segunda mensagem", "Essa é a mensagem 3"]
 
 //[GET] /mensagens - Retorna a lista de mensagem
 app.get('/mensagens', (req, res) => {
@@ -50,14 +49,14 @@ app.put('/mensagens/:id', (req, res) => { //obter o id
     const mensagem = req.body.mensagem //pega a nova mensagem
     mensagens[id] = mensagem //atualiza a nova  mensagem na posição do id
     res.send(`Mensagem atualizada com sucesso: ${mensagem}.`)//mostra nova mensagem
-
-
 })
 
-
-
-
 //[DELETE] /mensagens/{id} - Remove uma mensagem pelo ID
+app.delete('/mensagens/:id', (req, res) => {
+    const id = req.params.id - 1
+    delete mensagens[id]
+    res.send(`Mensagem removida com sucesso!`)
+})
 
 app.listen(port, () => {// => arrow function
     console.log(`App rodando na porta: ${port} `)//template stream
