@@ -62,18 +62,33 @@ app.get('/mensagens/:id', (req, res) => {
     
 //[POST] / mensagens - Cria uma nova mensagem
 app.post('/mensagens', (req, res) => {
-    const mensagem = req.body.mensagem//Recebe as mesasgens informadas no body do Postman
+    const mensagem = req.body//Recebe as mesasgens informadas no body do Postman
+    //Gerando o ID
+    mensagem.id = mensagens.length + 1
+    //Verificar se mesagem existe e testo existe
+    if (!mensagem || mensagem.texto) {
+        res.send('Mensagem Inválida!')
+        return
+    }
     mensagens.push(mensagem)//Adiciona mensagens na lista
-    res.send(`Mensagem criada com sucesso: ${mensagem}.`)
+    res.send(mensagem)
 })
 
 
 //[PUT] /mensagens/{id} - Atualiza uma mensagem pelo ID
 app.put('/mensagens/:id', (req, res) => { //obter o id
     const id = req.params.id - 1 //Qual mensagem vai ser editada
-    const mensagem = req.body.mensagem //pega a nova mensagem
-    mensagens[id] = mensagem //atualiza a nova  mensagem na posição do id
-    res.send(`Mensagem atualizada com sucesso: ${mensagem}.`)//mostra nova mensagem
+
+    const mensagem = mensagens[id]//Obter a mensagem na lista de mensagem
+    const novoTexto = req.body.texto //pega a nova mensagem que quer atualizar
+    if (!novoTexto) {//Caso não tenha um novo texto
+        res.send('Mensagem Inválida!')
+        return
+    }
+    mensagem.texto = novoTexto //Atualiza a mensagem
+    
+
+    res.send(mensagem)//mostra nova mensagem
 })
 
 //[DELETE] /mensagens/{id} - Remove uma mensagem pelo ID
